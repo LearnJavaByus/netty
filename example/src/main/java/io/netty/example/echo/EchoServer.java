@@ -49,7 +49,9 @@ public final class EchoServer {
         }
 
         // Configure the server. Oio Nio Aio
+        //boss负责请求的accept
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        //work负责请求的read、write
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         final EchoServerHandler serverHandler = new EchoServerHandler();
         try {

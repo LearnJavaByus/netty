@@ -32,6 +32,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
 
 /**
+ * 主要管理eventLoop的生命周期。 eventLoop是什么？姑且把它看成是内部的一个处理线程，数量默认是处理器个数的两倍
  * {@link MultithreadEventLoopGroup} implementations which is used for NIO {@link Selector} based {@link Channel}s.
  */
 public class NioEventLoopGroup extends MultithreadEventLoopGroup {

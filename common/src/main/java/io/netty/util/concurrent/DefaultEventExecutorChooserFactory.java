@@ -32,6 +32,7 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
     @Override
     public EventExecutorChooser newChooser(EventExecutor[] executors) {
+        //根据数组的大小，采用不同策略初始化chooser，如果大小为2的幂次方，则采用PowerOfTwoEventExecutorChooser，否则使用GenericEventExecutorChooser。
         if (isPowerOfTwo(executors.length)) {
             return new PowerOfTwoEventExecutorChooser(executors);
         } else {
@@ -40,6 +41,7 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
     }
 
     private static boolean isPowerOfTwo(int val) {
+        //判断一个数是否是2的幂次方
         return (val & -val) == val;
     }
 
