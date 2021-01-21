@@ -42,7 +42,9 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
        @Override
        public void run() { } // Do nothing
     };
-
+    /**
+     * 定义在其父类AbstractScheduledEventExecutor中，用以保存延迟执行的任务。
+     */
     PriorityQueue<ScheduledFutureTask<?>> scheduledTaskQueue;
 
     long nextTaskId;

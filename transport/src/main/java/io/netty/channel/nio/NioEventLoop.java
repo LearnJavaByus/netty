@@ -53,6 +53,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * {@link SingleThreadEventLoop} implementation which register the {@link Channel}'s to a
  * {@link Selector} and so does the multi-plexing of these in the event loop.
  *
+ * 每个eventLoop会维护一个selector和taskQueue，负责处理客户端请求和内部任务，如ServerSocketChannel注册和ServerSocket绑定等。
  */
 public final class NioEventLoop extends SingleThreadEventLoop {
 

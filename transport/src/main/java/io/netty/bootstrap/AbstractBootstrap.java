@@ -269,18 +269,20 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     private ChannelFuture doBind(final SocketAddress localAddress) {
+        //返回一个ChannelFuture实例regFuture，通过regFuture可以判断initAndRegister执行结果。
         final ChannelFuture regFuture = initAndRegister();
         final Channel channel = regFuture.channel();
         if (regFuture.cause() != null) {
             return regFuture;
         }
 
-        if (regFuture.isDone()) {
+        if (regFuture.isDone()) {//为true，说明initAndRegister已经执行完，则直接执行doBind0进行socket绑定。
             // At this point we know that the registration was complete and successful.
             ChannelPromise promise = channel.newPromise();
             doBind0(regFuture, channel, localAddress, promise);
             return promise;
         } else {
+            //添加一个ChannelFutureListener监听，当initAndRegister执行完成时，调用operationComplete方法并执行doBind0进行socket绑定
             // Registration future is almost always fulfilled already, but just in case it's not.
             final PendingRegistrationPromise promise = new PendingRegistrationPromise(channel);
             regFuture.addListener(new ChannelFutureListener() {
@@ -304,6 +306,13 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         }
     }
 
+    /**
+     * 1、负责创建服务端的NioServerSocketChannel实例
+     * 2、为NioServerSocketChannel的pipeline添加handler
+     * 3、注册NioServerSocketChannel到selector
+     *
+     * @return
+     */
     final ChannelFuture initAndRegister() {
         Channel channel = null;
         try {

@@ -84,7 +84,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
     protected AbstractChannel(Channel parent, ChannelId id) {
         this.parent = parent;
         this.id = id;
+        //负责底层的connect、register、read和write等操作。
         unsafe = newUnsafe();
+        // 初始化pipeline，每个Channel都有自己的pipeline，当有请求事件发生时，pipeline负责调用相应的hander进行处理。
         pipeline = newChannelPipeline();
     }
 
