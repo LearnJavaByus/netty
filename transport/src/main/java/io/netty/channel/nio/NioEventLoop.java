@@ -54,6 +54,8 @@ import java.util.concurrent.atomic.AtomicLong;
  * {@link Selector} and so does the multi-plexing of these in the event loop.
  *
  * 每个eventLoop会维护一个selector和taskQueue，负责处理客户端请求和内部任务，如ServerSocketChannel注册和ServerSocket绑定等。
+ *
+ * 维护了一个线程，线程启动时会调用NioEventLoop的run方法，执行I/O任务和非I/O任务：
  */
 public final class NioEventLoop extends SingleThreadEventLoop {
 

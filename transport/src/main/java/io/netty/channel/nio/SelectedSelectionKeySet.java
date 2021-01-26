@@ -25,7 +25,7 @@ final class SelectedSelectionKeySet extends AbstractSet<SelectionKey> {
 
     SelectionKey[] keys;
     int size;
-
+    //内部使用两个大小为1024的SelectionKey数组keysA和keysB保存selectedKey。
     SelectedSelectionKeySet() {
         keys = new SelectionKey[1024];
     }

@@ -123,6 +123,7 @@ final class ScheduledFutureTask<V> extends PromiseTask<V> implements ScheduledFu
     }
 
     public long delayNanos(long currentTimeNanos) {
+        //计算延迟任务队列中第一个任务的到期执行时间（即最晚还能延迟多长时间执行），默认返回1s。
         return deadlineNanos == 0L ? 0L
                 : Math.max(0L, deadlineNanos() - (currentTimeNanos - START_TIME));
     }
