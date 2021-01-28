@@ -125,6 +125,7 @@ public class UnpooledDirectByteBuf extends AbstractReferenceCountedByteBuf {
 
         this.buffer = buffer;
         tmpNioBuf = null;
+        // 获取缓存容量
         capacity = buffer.remaining();
     }
 

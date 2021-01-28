@@ -46,6 +46,7 @@ public class DefaultMaxBytesRecvByteBufAllocator implements MaxBytesRecvByteBufA
 
         @Override
         public ByteBuf allocate(ByteBufAllocator alloc) {
+            // 申请一块指定大小的内存
             return alloc.ioBuffer(guess());
         }
 

@@ -49,7 +49,7 @@ public final class EchoServer {
         }
 
         // Configure the server. Oio Nio Aio
-        //boss负责请求的accept
+        // boss线程主要负责监听并处理accept事件，将socketChannel注册到work线程的selector，由worker线程来监听并处理read事件
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         //work负责请求的read、write
         EventLoopGroup workerGroup = new NioEventLoopGroup();
