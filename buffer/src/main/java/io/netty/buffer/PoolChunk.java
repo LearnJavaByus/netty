@@ -131,6 +131,14 @@ import java.util.PriorityQueue;
  * 3) merge continuous avail runs
  * 4) save the merged run
  *
+ * poolChunk默认由2048个page组成，一个page默认大小为8k，图中节点的值为在数组memoryMap的下标。
+ * 1、如果需要分配大小8k的内存，则只需要在第11层，找到第一个可用节点即可。
+ * 2、如果需要分配大小16k的内存，则只需要在第10层，找到第一个可用节点即可。
+ * 3、如果节点1024存在一个已经被分配的子节点2048，则该节点不能被分配，如需要分配大小16k的内存，这个时候节点2048已被分配，节点2049未被分配，就不能直接分配节点1024，因为该节点目前只剩下8k内存。
+ *
+ * poolChunk内部会保证每次分配内存大小为8K*(2n)，为了分配一个大小为chunkSize/(2k)的节点，需要在深度为k的层从左开始匹配节点，
+ *
+ *
  */
 final class PoolChunk<T> implements PoolChunkMetric {
 

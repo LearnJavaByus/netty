@@ -26,18 +26,24 @@ final class PoolSubpage<T> implements PoolSubpageMetric {
 
     final PoolChunk<T> chunk;
     private final int pageShifts;
+    // 当前page在chunk.memory的偏移量
     private final int runOffset;
     private final int runSize;
+    //通过对每一个二进制位的标记来修改一段内存的占用状态
     private final long[] bitmap;
 
     PoolSubpage<T> prev;
     PoolSubpage<T> next;
 
     boolean doNotDestroy;
+    // 该page切分后每一段的大小
     int elemSize;
+    // 该page包含的段数量
     private int maxNumElems;
     private int bitmapLength;
+    // 下一个可用的位置
     private int nextAvail;
+    // 可用的段数量
     private int numAvail;
 
     // TODO: Test if adding padding helps under contention
